@@ -34,7 +34,8 @@
                 "usage1 usage2 usage3"
                 "usage4 usage5 usage5"
                 "security security security"
-                "quiz quiz quiz";
+                "quiz quiz quiz"
+                "practice practice practice";
         }
 
         .card {
@@ -89,6 +90,7 @@
         .usage5 { grid-area: usage5; }
         .security { grid-area: security; }
         .quiz { grid-area: quiz; }
+        .practice { grid-area: practice; }
 
         /* Typography */
         .big-number {
@@ -302,7 +304,8 @@
                     "usage4"
                     "usage5"
                     "security"
-                    "quiz";
+                    "quiz"
+                    "practice";
             }
 
             .header h1 {
@@ -322,6 +325,105 @@
             .email-part {
                 margin: 5px 0;
             }
+        }
+
+        /* Practice Section Styles */
+        .practice-steps {
+            margin-top: 20px;
+        }
+
+        .practice-step {
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid #8B5CF6;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .practice-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .practice-step h3 {
+            color: #8B5CF6;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .practice-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #8B5CF6, #5B21B6);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .practice-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .practice-note {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3B82F6;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .practice-warning {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #EF4444;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .practice-warning strong {
+            color: #EF4444;
+        }
+
+        .practice-warning ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .practice-step ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .practice-step ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .practice-safety ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .practice-safety {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10B981;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .practice-safety h3 {
+            color: #10B981;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
 
         /* Accessibility */
@@ -482,6 +584,76 @@
             <div id="quiz-result" class="card-content" style="display: none;">
                 <h3>🎉 太棒了！你是邮件专家！</h3>
                 <p>你现在知道如何安全负责地使用邮件了。记住在网上要始终小心！</p>
+            </div>
+        </div>
+
+        <!-- Practice Section -->
+        <div class="card practice purple" tabindex="0">
+            <div class="big-number">🌐</div>
+            <h2 class="card-title">实践练习 - 试试真正的邮箱</h2>
+            <p class="card-subtitle">让我们一起探索如何使用真正的邮箱服务 - Outlook！</p>
+            
+            <div class="practice-steps">
+                <div class="practice-step">
+                    <h3>第1步：访问 Outlook 网站</h3>
+                    <a href="https://outlook.live.com" target="_blank" class="practice-link">
+                        📧 打开 Outlook (outlook.live.com)
+                    </a>
+                    <p class="practice-note">💡 在新窗口中打开，可以继续看这里的说明！</p>
+                </div>
+
+                <div class="practice-step">
+                    <h3>第2步：登录或创建账户</h3>
+                    <div class="practice-warning">
+                        <strong>⚠️ 安全提示：</strong>
+                        <ul>
+                            <li>需要父母或老师帮助创建新邮箱</li>
+                            <li>用户名不要用真实姓名</li>
+                            <li>选择强密码并保存好</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="practice-step">
+                    <h3>第3步：探索收件箱</h3>
+                    <p>登录后，你会看到：</p>
+                    <ul>
+                        <li>📥 <strong>收件箱</strong>：收到的邮件</li>
+                        <li>📤 <strong>发件箱</strong>：发送的邮件</li>
+                        <li>🗑️ <strong>垃圾箱</strong>：已删除的邮件</li>
+                        <li>📝 <strong>撰写</strong>：写新邮件</li>
+                    </ul>
+                </div>
+
+                <div class="practice-step">
+                    <h3>第4步：发送第一封邮件</h3>
+                    <p>给自己发一封测试邮件：</p>
+                    <ol>
+                        <li>点击"撰写"按钮</li>
+                        <li>收件人：输入自己的邮箱地址</li>
+                        <li>主题：写"我的第一封邮件测试"</li>
+                        <li>正文：写一些友好的内容</li>
+                        <li>点击"发送"</li>
+                    </ol>
+                    <p class="practice-note">💡 给自己发邮件练习最安全！</p>
+                </div>
+
+                <div class="practice-step">
+                    <h3>第5步：检查邮件</h3>
+                    <p>刷新收件箱，看看刚才发送的邮件！</p>
+                    <p>点击邮件来阅读它。</p>
+                </div>
+            </div>
+
+            <div class="practice-safety">
+                <h3>🛡️ 安全提醒</h3>
+                <p>使用真正的邮箱时，记住安全规则：</p>
+                <ul>
+                    <li>不要点击陌生人的链接</li>
+                    <li>不要下载不认识的文件</li>
+                    <li>有问题时询问大人</li>
+                    <li>保护好你的密码</li>
+                </ul>
             </div>
         </div>
     </div>
