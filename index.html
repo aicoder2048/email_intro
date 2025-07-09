@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📮 邮件小博士 - 成为超级邮件达人！</title>
+    <meta name="description" content="适合8-12岁儿童的互动邮件教育">
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@11.0.28/dist/framer-motion.umd.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-auto-rows: minmax(200px, auto);
+            gap: 20px;
+            grid-template-areas: 
+                "header header header"
+                "format format format"
+                "usage1 usage2 usage3"
+                "usage4 usage5 usage5"
+                "security security security"
+                "quiz quiz quiz";
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 20px 20px 0 0;
+        }
+
+        /* Color System */
+        .blue { --accent-color: linear-gradient(135deg, #3B82F6, #1E40AF); }
+        .purple { --accent-color: linear-gradient(135deg, #8B5CF6, #5B21B6); }
+        .orange { --accent-color: linear-gradient(135deg, #F59E0B, #D97706); }
+        .green { --accent-color: linear-gradient(135deg, #10B981, #059669); }
+        .red { --accent-color: linear-gradient(135deg, #EF4444, #DC2626); }
+
+        .card.blue::before { background: linear-gradient(135deg, #3B82F6, #1E40AF); }
+        .card.purple::before { background: linear-gradient(135deg, #8B5CF6, #5B21B6); }
+        .card.orange::before { background: linear-gradient(135deg, #F59E0B, #D97706); }
+        .card.green::before { background: linear-gradient(135deg, #10B981, #059669); }
+        .card.red::before { background: linear-gradient(135deg, #EF4444, #DC2626); }
+
+        /* Grid Areas */
+        .header { grid-area: header; }
+        .format { grid-area: format; }
+        .usage1 { grid-area: usage1; }
+        .usage2 { grid-area: usage2; }
+        .usage3 { grid-area: usage3; }
+        .usage4 { grid-area: usage4; }
+        .usage5 { grid-area: usage5; }
+        .security { grid-area: security; }
+        .quiz { grid-area: quiz; }
+
+        /* Typography */
+        .big-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--accent-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2D3748;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            color: #4A5568;
+            margin-bottom: 20px;
+        }
+
+        .card-content {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #2D3748;
+        }
+
+        /* Header Styles */
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #4A5568;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Security Section Styles */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .security-item {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid #EF4444;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .security-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .security-item h4 {
+            color: #EF4444;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .security-item p {
+            color: #2D3748;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Email Format Styles */
+        .email-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .email-part {
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .email-username {
+            background: linear-gradient(135deg, #3B82F6, #1E40AF);
+            color: white;
+        }
+
+        .email-at {
+            background: linear-gradient(135deg, #8B5CF6, #5B21B6);
+            color: white;
+        }
+
+        .email-domain {
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            color: white;
+        }
+
+        .email-part:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Usage Icons */
+        .usage-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            text-align: center;
+        }
+
+        /* Security Warning Styles */
+        .security-warning {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .warning-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+            color: #EF4444;
+        }
+
+        /* Quiz Styles */
+        .quiz-question {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid #3B82F6;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .quiz-option {
+            padding: 15px;
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .quiz-option:hover {
+            border-color: #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-option.incorrect {
+            border-color: #EF4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "header"
+                    "format"
+                    "usage1"
+                    "usage2"
+                    "usage3"
+                    "usage4"
+                    "usage5"
+                    "security"
+                    "quiz";
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .big-number {
+                font-size: 3rem;
+            }
+
+            .email-demo {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .email-part {
+                margin: 5px 0;
+            }
+        }
+
+        /* Accessibility */
+        .card:focus {
+            outline: 3px solid #3B82F6;
+            outline-offset: 2px;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="card header blue" tabindex="0">
+            <h1>📮 邮件小博士 🚀</h1>
+            <p>🎉 欢迎来到神奇的电子邮件世界！让我们一起学习电子邮件的工作原理，成为网络安全小达人！ 💪✨</p>
+        </div>
+
+
+        <!-- Email Format -->
+        <div class="card format orange" tabindex="0">
+            <div class="big-number">@</div>
+            <h2 class="card-title">邮件地址是怎么工作的</h2>
+            <p class="card-subtitle">每个邮件地址都有3个部分 - 点击每个部分来了解更多！</p>
+            <div class="email-demo">
+                <span class="email-part email-username" onclick="showExplanation('username')">xiaoming123</span>
+                <span class="email-part email-at" onclick="showExplanation('at')">@</span>
+                <span class="email-part email-domain" onclick="showExplanation('domain')">qq.com</span>
+            </div>
+            <div id="email-explanation" class="card-content">
+                <p>点击上面的彩色部分来了解每个部分的作用！</p>
+            </div>
+        </div>
+
+        <!-- Usage 1: Communication -->
+        <div class="card usage1 green" tabindex="0">
+            <div class="usage-icon">💌</div>
+            <h3 class="card-title">1. 和朋友聊天</h3>
+            <p class="card-content">
+                邮件就像发送数字信件！但现在大多数人用微信、QQ或短信和朋友聊天，因为它们更快。
+            </p>
+        </div>
+
+        <!-- Usage 2: Authentication -->
+        <div class="card usage2 blue" tabindex="0">
+            <div class="usage-icon">🔐</div>
+            <h3 class="card-title">2. 数字钥匙</h3>
+            <p class="card-content">
+                当你注册应用或网站时，它们会发送密码到你的邮箱。这些密码就像数字钥匙，证明这真的是你！
+            </p>
+        </div>
+
+        <!-- Usage 3: Account Creation -->
+        <div class="card usage3 purple" tabindex="0">
+            <div class="usage-icon">👤</div>
+            <h3 class="card-title">3. 创建账户</h3>
+            <p class="card-content">
+                这超级重要！你需要邮箱在GitHub、游戏和其他酷网站上创建账户。它就像你的数字身份证！
+            </p>
+        </div>
+
+        <!-- Usage 4: File Sharing -->
+        <div class="card usage4 orange" tabindex="0">
+            <div class="usage-icon">📁</div>
+            <h3 class="card-title">4. 分享大文件</h3>
+            <p class="card-content">
+                想要给家人发送很多照片或大文件？邮件可以承载它们！就像一个能装很多东西的数字背包。
+            </p>
+        </div>
+
+        <!-- Usage 5: Storage -->
+        <div class="card usage5 green" tabindex="0">
+            <div class="usage-icon">📚</div>
+            <h3 class="card-title">5. 保存重要物品</h3>
+            <p class="card-content">
+                邮件就像数字宝箱！你可以安全地保存重要的东西，如收据、回忆和文件，保存很多年。
+            </p>
+        </div>
+
+        <!-- Security Center -->
+        <div class="card security red" tabindex="0">
+            <div class="big-number">🛡️</div>
+            <h2 class="card-title">安全中心 - 保护你的邮箱</h2>
+            <p class="card-subtitle">学会这四条重要的安全规则，让你的邮箱更安全！</p>
+            
+            <div class="security-grid">
+                <div class="security-item">
+                    <div class="warning-icon">🛡️</div>
+                    <h4>1. 只信任好网站</h4>
+                    <p>不要向看起来可怕或要求太多信息的网站提供邮箱。只使用父母或老师说安全的网站！</p>
+                </div>
+                
+                <div class="security-item">
+                    <div class="warning-icon">🔒</div>
+                    <h4>2. 保护个人信息</h4>
+                    <p>永远不要在邮箱地址中放入你的生日、真实姓名或地址。坏人可能会用这些信息来欺骗你！</p>
+                </div>
+                
+                <div class="security-item">
+                    <div class="warning-icon">📎</div>
+                    <h4>3. 不要点奇怪的文件</h4>
+                    <p>如果不认识的人发给你要下载的文件，千万不要点击！它们可能包含计算机病毒，会损坏你的设备。</p>
+                </div>
+                
+                <div class="security-item">
+                    <div class="warning-icon">🤔</div>
+                    <h4>4. 朋友也可能被骗</h4>
+                    <p>有时坏人会黑入你朋友或家人的邮箱账户。如果邮件看起来很奇怪，要在现实中问那个人是否真的发了这封邮件！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div class="card quiz blue" tabindex="0">
+            <div class="big-number">?</div>
+            <h2 class="card-title">测试你的邮件知识！</h2>
+            
+            <div class="quiz-question">
+                <h3>邮件地址中@符号前面的部分叫什么？</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(this, true)">用户名</div>
+                    <div class="quiz-option" onclick="selectAnswer(this, false)">域名</div>
+                    <div class="quiz-option" onclick="selectAnswer(this, false)">密码</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>如果你收到陌生人发来的带有附件的邮件，你应该怎么办？</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(this, false)">立即点击</div>
+                    <div class="quiz-option" onclick="selectAnswer(this, true)">不要点击</div>
+                    <div class="quiz-option" onclick="selectAnswer(this, false)">转发给朋友</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h3>为什么我们需要邮箱地址？</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectAnswer(this, false)">用来玩游戏</div>
+                    <div class="quiz-option" onclick="selectAnswer(this, true)">创建账户和接收验证码</div>
+                    <div class="quiz-option" onclick="selectAnswer(this, false)">用来看视频</div>
+                </div>
+            </div>
+
+            <div id="quiz-result" class="card-content" style="display: none;">
+                <h3>🎉 太棒了！你是邮件专家！</h3>
+                <p>你现在知道如何安全负责地使用邮件了。记住在网上要始终小心！</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Progress bar functionality
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Email explanation functionality
+        function showExplanation(part) {
+            const explanation = document.getElementById('email-explanation');
+            let text = '';
+            
+            switch(part) {
+                case 'username':
+                    text = '🎯 <strong>用户名：</strong> 这是你的独特名字！就像你的邮箱名字。选择你喜欢的，但不要使用真实姓名或生日。';
+                    break;
+                case 'at':
+                    text = '🔗 <strong>@ 符号：</strong> 这个特殊符号连接你的名字和邮件公司。它的意思是"在" - 就像"xiaoming123 在 qq"！';
+                    break;
+                case 'domain':
+                    text = '🏢 <strong>域名：</strong> 这是处理你邮件的邮件公司 - 像QQ邮箱、网易邮箱或新浪邮箱。就像你数字信件的邮局！';
+                    break;
+            }
+            
+            explanation.innerHTML = text;
+            explanation.style.background = 'rgba(59, 130, 246, 0.1)';
+            explanation.style.padding = '15px';
+            explanation.style.borderRadius = '10px';
+            explanation.style.marginTop = '15px';
+        }
+
+        // Quiz functionality
+        let correctAnswers = 0;
+        let totalQuestions = 3;
+
+        function selectAnswer(element, isCorrect) {
+            // Remove any existing classes
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.style.pointerEvents = 'none';
+            });
+
+            // Add appropriate class
+            if (isCorrect) {
+                element.classList.add('correct');
+                correctAnswers++;
+            } else {
+                element.classList.add('incorrect');
+                // Show the correct answer
+                options.forEach(option => {
+                    if (option.onclick.toString().includes('true')) {
+                        option.classList.add('correct');
+                    }
+                });
+            }
+
+            // Check if all questions are answered
+            setTimeout(() => {
+                if (document.querySelectorAll('.quiz-option.correct, .quiz-option.incorrect').length === totalQuestions) {
+                    showQuizResult();
+                }
+            }, 1000);
+        }
+
+        function showQuizResult() {
+            const result = document.getElementById('quiz-result');
+            result.style.display = 'block';
+            
+            if (correctAnswers === totalQuestions) {
+                result.innerHTML = '<h3>🎉 完美！你是邮件专家！</h3><p>你回答了所有问题！现在你知道如何安全负责地使用邮件了。</p>';
+            } else if (correctAnswers >= 2) {
+                result.innerHTML = '<h3>👍 做得好！你学得很好！</h3><p>你答对了大部分问题！继续练习成为邮件专家。</p>';
+            } else {
+                result.innerHTML = '<h3>📚 继续学习！</h3><p>你在正确的道路上！复习上面的信息并再试一次。</p>';
+            }
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                // Tab navigation is handled by browser
+                return;
+            }
+            
+            if (e.key === 'Enter' || e.key === ' ') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.classList.contains('card')) {
+                    // Add some visual feedback
+                    focusedElement.style.transform = 'translateY(-2px)';
+                    setTimeout(() => {
+                        focusedElement.style.transform = '';
+                    }, 150);
+                }
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgressBar();
+            
+            // Add some entrance animations
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
