@@ -13,7 +13,7 @@ An interactive email education page designed for children aged 8 and above, teac
 - **Chinese Font Optimization** - Optimized for Chinese character display
 
 ### 📚 Educational Content | 教育内容
-- **Email Format Explanation** - Interactive breakdown of email addresses (xiaoming123@qq.com)
+- **Email Format Explanation** - Interactive breakdown of email addresses (xiaoming123@outlook.com)
 - **5 Common Usage Scenarios** - Communication, authentication, account creation, file sharing, storage
 - **Security Center** - 4 essential safety rules for online protection
 - **Interactive Quiz** - Test knowledge with immediate feedback
