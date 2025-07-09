@@ -273,11 +273,35 @@
         .quiz-option.correct {
             border-color: #10B981;
             background: rgba(16, 185, 129, 0.1);
+            position: relative;
+        }
+
+        .quiz-option.correct::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #10B981;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         .quiz-option.incorrect {
             border-color: #EF4444;
             background: rgba(239, 68, 68, 0.1);
+            position: relative;
+        }
+
+        .quiz-option.incorrect::after {
+            content: '✗';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #EF4444;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         /* Progress Bar */
